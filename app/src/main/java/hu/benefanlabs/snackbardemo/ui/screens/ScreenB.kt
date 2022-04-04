@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import hu.benefanlabs.snackbardemo.ui.components.CustomSnackbarType
 import hu.benefanlabs.snackbardemo.ui.navigation.NavigationRoutes
 
 @Composable
 fun ScreenB(
-    showSnackbar: (String, SnackbarDuration) -> Unit,
+    showSnackbar: (String, SnackbarDuration, CustomSnackbarType) -> Unit,
     navController: NavController
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -21,7 +22,7 @@ fun ScreenB(
         Button(
             modifier = Modifier.align(Alignment.Center),
             onClick = {
-                showSnackbar("Hello Snackbar", SnackbarDuration.Short)
+                showSnackbar("Hello Snackbar", SnackbarDuration.Short, CustomSnackbarType.ERROR)
                 navController.navigate(NavigationRoutes.ScreenA.route)
             }
         ) {

@@ -9,17 +9,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import hu.benefanlabs.snackbardemo.ui.components.CustomSnackbarState
+import hu.benefanlabs.snackbardemo.ui.components.CustomSnackbarType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class SnackbarDemoAppState(
+    val customSnackbarState: CustomSnackbarState,
     val scaffoldState: ScaffoldState,
     val snackbarScope: CoroutineScope,
     val navController: NavHostController
 ) {
-    fun showSnackbar(message: String, duration: SnackbarDuration = SnackbarDuration.Short) {
+    fun showSnackbar(
+        message: String,
+        duration: SnackbarDuration = SnackbarDuration.Short,
+        type: CustomSnackbarType
+    ) {
+        customSnackbarState.currentSnackbarType = type
         snackbarScope.launch {
-            scaffoldState.snackbarHostState.showSnackbar(
+            customSnackbarState.snackbarHostState.showSnackbar(
                 message = message,
                 duration = duration
             )
@@ -29,15 +37,22 @@ class SnackbarDemoAppState(
 
 @Composable
 fun rememberSnackbarDemoAppState(
+    snackbarHostState: SnackbarHostState = remember {
+        SnackbarHostState()
+    },
+    customSnackbarState: CustomSnackbarState = remember {
+        CustomSnackbarState(
+            snackbarHostState = snackbarHostState
+        )
+    },
     scaffoldState: ScaffoldState = rememberScaffoldState(
-        snackbarHostState = remember {
-            SnackbarHostState()
-        }
+        snackbarHostState = snackbarHostState
     ),
     navController: NavHostController = rememberNavController(),
     snackbarScope: CoroutineScope = rememberCoroutineScope()
-) = remember(scaffoldState, navController, snackbarScope) {
+) = remember(customSnackbarState, scaffoldState, navController, snackbarScope) {
     SnackbarDemoAppState(
+        customSnackbarState = customSnackbarState,
         scaffoldState = scaffoldState,
         navController = navController,
         snackbarScope = snackbarScope

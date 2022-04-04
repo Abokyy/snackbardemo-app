@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import hu.benefanlabs.snackbardemo.ui.components.CustomSnackbarType
 import hu.benefanlabs.snackbardemo.ui.screens.ScreenA
 import hu.benefanlabs.snackbardemo.ui.screens.ScreenB
 import hu.benefanlabs.snackbardemo.ui.screens.ScreenC
@@ -12,7 +13,7 @@ import hu.benefanlabs.snackbardemo.ui.screens.ScreenC
 @Composable
 fun MyNavigation(
     navController: NavHostController,
-    showSnackbar: (String, SnackbarDuration) -> Unit
+    showSnackbar: (String, SnackbarDuration, CustomSnackbarType) -> Unit
 ) {
     NavHost(navController = navController, startDestination = NavigationRoutes.ScreenA.route) {
 
