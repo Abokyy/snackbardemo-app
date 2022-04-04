@@ -25,11 +25,11 @@ class SnackbarDemoAppState(
         duration: SnackbarDuration = SnackbarDuration.Short,
         type: CustomSnackbarType
     ) {
-        customSnackbarState.currentSnackbarType = type
         snackbarScope.launch {
-            customSnackbarState.snackbarHostState.showSnackbar(
+            customSnackbarState.showSnackbar(
                 message = message,
-                duration = duration
+                duration = duration,
+                type = type
             )
         }
     }
